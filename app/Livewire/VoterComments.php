@@ -12,7 +12,7 @@ class VoterComments extends Component
     public $voterId;
     public $editingCommentId = null;
     public $editTitle = '';
-    public $editCommentContent = '';
+    public $editCommentBody = '';
     public $editCategory = '';
 
     // নতুন কমেন্ট সেভ হলে লিস্ট রিফ্রেশ করার জন্য
@@ -29,8 +29,11 @@ class VoterComments extends Component
         if ($comment) {
             $this->editingCommentId = $id;
             $this->editTitle = $comment->title;
-            $this->editCommentContent = $comment->comment;
+            $this->editCommentBody = $comment->comment;
             $this->editCategory = $comment->category;
+
+            //GKEditor এর জন্য ইভেন্ট ডিসপ্যাচ করা হচ্ছে
+            $this->dispatch('edit-mode-started', content: $this->editCommentBody);
         }
     }
 
@@ -39,7 +42,7 @@ class VoterComments extends Component
     {
         $this->validate([
             'editTitle' => 'nullable|string|max:255',
-            'editCommentContent' => 'required|string',
+            'editCommentBody' => 'required|string',
             'editCategory' => 'nullable|string',
         ]);
 
@@ -47,7 +50,7 @@ class VoterComments extends Component
 
         $comment->update([
             'title' => $this->editTitle,
-            'comment' => $this->editCommentContent,
+            'comment' => $this->editCommentBody,
             'category' => $this->editCategory,
         ]);
 
