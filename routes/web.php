@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Livewire\VoterManager; // আপনার ক্লাস বেইজড কম্পোনেন্ট
 use App\Models\Voter;
 
 // হোম পেজ (পাবলিক)
@@ -13,31 +14,34 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::view('/dashboard', 'dashboard')->name('dashboard');
 
     /**
-     * ভোটার ম্যানেজমেন্ট রাউটস
+     * ভোটার ম্যানেজমেন্ট রাউটস (Class-based)
      */
     Route::prefix('voters')->name('voters.')->group(function () {
 
-        // ভোটার লিস্ট (অবস্থান: pages/voters/voter-list.blade.php)
-        Route::livewire('/voter-list', 'pages::voters.voter-list')
-            ->name('voter-list');
+        // প্রধান CRUD কম্পোনেন্ট (লিস্ট, তৈরি, এডিট এবং ডিলিট এখন একসাথেই হবে)
+        Route::get('/', VoterManager::class)->name('index');
 
-        // ভোটার যোগ করা
-        Route::livewire('/add-voter', 'pages::voters.add-voter')
-            ->name('add-voter');
-
-        // ভোটার এডিট করা
-        Route::livewire('/edit-voter/{id}', 'pages::voters.add-voter')
-            ->name('edit-voter');
-
-        // ভোটার কমেন্ট যোগ করা
-        // পাথ: /voters/voter-comment/37
-        // ব্লেড ফাইল অবস্থান: resources/views/pages/voter-comment/create.blade.php
+        // ভোটার কমেন্ট যোগ করার রাউট (এটি আগের মতোই রাখা হয়েছে)
         Route::get('/voter-comment/{voter}', function (Voter $voter) {
             return view('pages.voter-comment.create', compact('voter'));
-        })->name('voter-comments.create');
-
+                  })->name('voter-comments.create');
     });
 });
+
+Route::middleware(['auth'])->group(function () {
+    // প্রোফাইল/ড্যাশবোর্ড সংশ্লিষ্ট রাউট...
+
+    // প্রতিষ্ঠান সংশ্লিষ্ট রাউট
+    Route::livewire('/primary-school/create', 'pages::primary-school.create')->name('primary-school.create');
+    Route::livewire('/mosque/create', 'pages::mosque.create')->name('mosque.create');
+    Route::livewire('/temple/create', 'pages::temple.create')->name('temple.create');
+
+    // ভৌগোলিক সংশ্লিষ্ট রাউট
+    Route::livewire('/division/create', 'pages::division.create')->name('division.create');
+    Route::livewire('/district/create', 'pages::district.create')->name('district.create');
+});
+
+
 
 // settings.php ফাইল লোড করা
 if (file_exists(__DIR__ . '/settings.php')) {

@@ -72,7 +72,7 @@ new class extends Component
             {{ $isEditMode ? 'ভোটার তথ্য আপডেট' : 'নতুন ভোটার যুক্ত করুন' }}
         </h2>
         {{-- এখানে আপনার লিস্ট পেজের রাউট নেম দিবেন --}}
-        <a href="{{ route('voters.voter-list') }}" class="bg-gray-500 text-white px-4 py-2 rounded-md hover:bg-gray-600 transition text-sm">
+        <a href="{{ route('voters.voter-list') }}" class= "bg-gray-500 text-white px-4 py-2 rounded-md hover:bg-gray-600 transition text-sm">
             তালিকায় ফিরে যান
         </a>
     </div>
@@ -85,38 +85,38 @@ new class extends Component
 
     <form wire:submit.prevent="saveVoter" class="grid grid-cols-1 md:grid-cols-2 gap-4 bg-white p-6 rounded-lg shadow">
         <div>
-            <label class="block text-sm font-medium text-gray-700">নাম</label>
-            <input type="text" wire:model="name" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
+            <label class="block mb-2 text-sm font-medium text-gray-700">নাম</label>
+            <input type="text" wire:model="name" class="mt-1 p-2 placeholder:text-gray-300 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500" placeholder="ভোটারের পূর্ণ নাম লিখুন">
             @error('name') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
         </div>
 
         <div>
-            <label class="block text-sm font-medium text-gray-700">ভোটার নম্বর</label>
-            <input type="text" wire:model="voter_number" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm">
+            <label class="block mb-2 text-sm font-medium text-gray-700">ভোটার নম্বর</label>
+            <input type="text" wire:model="voter_number" class="mt-1 p-2 placeholder:text-gray-300 block w-full border-gray-300 rounded-md shadow-sm" placeholder="ভোটার নম্বর লিখুন">
             @error('voter_number') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
         </div>
 
         <div>
-            <label class="block text-sm font-medium text-gray-700">পিতার নাম</label>
-            <input type="text" wire:model="father_name" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm">
+            <label class="block mb-2 text-sm font-medium text-gray-700">পিতার নাম</label>
+            <input type="text" wire:model="father_name" class="mt-1 p-2 placeholder:text-gray-300 block w-full border-gray-300 rounded-md shadow-sm" placeholder="পিতার নাম লিখুন">
             @error('father_name') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
         </div>
 
         <div>
-            <label class="block text-sm font-medium text-gray-700">মাতার নাম</label>
-            <input type="text" wire:model="mother_name" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm">
+            <label class="block mb-2 text-sm font-medium text-gray-700">মাতার নাম</label>
+            <input type="text" wire:model="mother_name" class="mt-1 p-2 placeholder:text-gray-300 block w-full border-gray-300 rounded-md shadow-sm" placeholder="মাতার নাম লিখুন">
             @error('mother_name') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
         </div>
 
         <div class="md:col-span-2">
-            <label class="block text-sm font-medium text-gray-700">বাড়ির নাম</label>
-            <input type="text" wire:model="house_name" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm">
+            <label class="block mb-2 text-sm font-medium text-gray-700">বাড়ির নাম</label>
+            <input type="text" wire:model="house_name" class="mt-1 p-2 placeholder:text-gray-300 block w-full border-gray-300 rounded-md shadow-sm" placeholder="বাড়ির নাম লিখুন">
             @error('house_name') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
         </div>
 
         <div class="md:col-span-2">
             <label class="block text-sm font-medium text-gray-700">বর্তমান অবস্থান</label>
-            <textarea wire:model="current_location" rows="2" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm"></textarea>
+            <textarea wire:model="current_location" rows="2" class="mt-1 p-2 placeholder:text-gray-300 block w-full border-gray-300 rounded-md shadow-sm" placeholder="বর্তমান অবস্থান লিখুন"></textarea>
             @error('current_location') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
         </div>
 

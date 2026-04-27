@@ -1,6 +1,6 @@
 <?php
 
-use Livewire\Component; // Volt ব্যবহার করলে এটি ব্যবহার করুন
+use Livewire\Component;
 use App\Models\Voter;
 use Livewire\WithPagination;
 

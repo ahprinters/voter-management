@@ -46,13 +46,15 @@ class VoterComments extends Component
             'editCategory' => 'nullable|string',
         ]);
 
-        $comment = VoterComment::findOrFail($this->editingCommentId);
+        $commentRecord = VoterComment::findOrFail($this->editingCommentId);
+        if ($commentRecord){
+                $commentRecord->update([
+                'title' => $this->editTitle,
+                'category' => $this->editCategory,
+                'comment' => $this->editCommentBody,
+            ]);
+        }
 
-        $comment->update([
-            'title' => $this->editTitle,
-            'comment' => $this->editCommentBody,
-            'category' => $this->editCategory,
-        ]);
 
         $this->editingCommentId = null; // এডিট মোড বন্ধ
 
