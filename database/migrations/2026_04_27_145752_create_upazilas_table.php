@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('upazilas', function (Blueprint $table) {
             $table->id();
-            $table->string('upazila_name')->unique();
+            $table->string('upazila_name');
             $table->foreignId('district_id')->constrained()->onDelete('cascade');
             $table->foreignId('division_id')->constrained()->onDelete('cascade');
             $table->timestamps();

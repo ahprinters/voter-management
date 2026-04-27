@@ -39,6 +39,8 @@ Route::middleware(['auth'])->group(function () {
     // ভৌগোলিক সংশ্লিষ্ট রাউট
     Route::livewire('/division/create', 'pages::division.create')->name('division.create');
     Route::livewire('/district/create', 'pages::district.create')->name('district.create');
+    Route::livewire('/upazila/create', 'pages::upazila.create')->name('upazila.create');
+    // Route::livewire('/union/create', 'pages::union.create')->name('union.create');
 });
 
 

@@ -60,10 +60,10 @@
                 </flux:navlist.item>
 
                 {{-- উপজেলা সাব-মেনু --}}
-                {{-- <flux:navlist.item icon="map-pin" :href="route('upazila.create')"
+                <flux:navlist.item icon="map-pin" :href="route('upazila.create')"
                     :current="request()->routeIs('upazila.create')" wire:navigate>
                     {{ __('উপজেলা তথ্য') }}
-                </flux:navlist.item> --}}
+                </flux:navlist.item>
             </flux:navlist.group>
         </flux:sidebar.nav>
 
