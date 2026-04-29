@@ -14,4 +14,20 @@ class Division extends Model
     {
         return $this->hasMany(District::class);
     }
+    public function upazilas()
+    {
+        return $this->hasMany(Upazila::class);
+    }
+    public function unions()
+    {
+        return $this->hasMany(Union::class);
+    }
+    public function wards()
+    {
+        return $this->hasMany(Ward::class);
+    }
+    public function voters()
+    {
+        return $this->hasMany(Voter::class);
+    }
 }

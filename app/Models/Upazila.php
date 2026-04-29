@@ -26,4 +26,12 @@ class Upazila extends Model
     {
         return $this->hasMany(Union::class);
     }
+    public function wards()
+    {
+        return $this->hasMany(Ward::class);
+    }
+    public function voters()
+    {
+        return $this->hasMany(Voter::class);
+    }
 }

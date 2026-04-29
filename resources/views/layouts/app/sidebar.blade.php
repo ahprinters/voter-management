@@ -64,6 +64,17 @@
                     :current="request()->routeIs('upazila.create')" wire:navigate>
                     {{ __('উপজেলা তথ্য') }}
                 </flux:navlist.item>
+
+                {{-- ইউনিয়ন সাব-মেনু --}}
+                <flux:navlist.item icon="map-pin" :href="route('union.create')"
+                    :current="request()->routeIs('union.create')" wire:navigate>
+                    {{ __('ইউনিয়ন তথ্য') }}
+                </flux:navlist.item>
+                    {{-- ওয়ার্ড সাব-মেনু --}}
+                    <flux:navlist.item icon="map-pin" :href="route('ward.create')"
+                        :current="request()->routeIs('ward.create')" wire:navigate>
+                        {{ __('ওয়ার্ড তথ্য') }}
+                    </flux:navlist.item>
             </flux:navlist.group>
         </flux:sidebar.nav>
 

@@ -32,4 +32,8 @@ class Union extends Model
     {
         return $this->hasMany(Ward::class);
     }
+    public function voters()
+    {
+        return $this->hasMany(Voter::class);
+    }
 }

@@ -40,8 +40,9 @@ Route::middleware(['auth'])->group(function () {
     Route::livewire('/division/create', 'pages::division.create')->name('division.create');
     Route::livewire('/district/create', 'pages::district.create')->name('district.create');
     Route::livewire('/upazila/create', 'pages::upazila.create')->name('upazila.create');
-    // Route::livewire('/union/create', 'pages::union.create')->name('union.create');
-});
+    Route::livewire('/union/create', 'pages::union.create')->name('union.create');
+    Route::livewire('/ward/create', 'pages::ward.create')->name('ward.create');
+})->name('auth.');
 
 
 

@@ -3,126 +3,112 @@
 namespace App\Livewire;
 
 use Livewire\Component;
-use App\Models\Voter;
-use Livewire\WithPagination;
+use App\Models\{Voter, Division, District, Upazila, Union, Ward};
+use Illuminate\Support\Facades\DB;
 
 class VoterManager extends Component
 {
-    use WithPagination;
-
-    // পাবলিক প্রপার্টিসমূহ
-    public $search = '';
+    // ভোটার প্রপার্টিজ
+    public $voterId, $isEditMode = false;
     public $name, $father_name, $mother_name, $house_name, $voter_number, $current_location;
-    public $voter_id; // আপডেট করার সময় আইডির জন্য
-    public $isOpen = false; // মডাল বা ফরম ওপেন/ক্লোজ করার জন্য
 
-    // সার্চ টেক্সট পরিবর্তন হলে পেজিনেশন রিসেট হবে
-    public function updatingSearch()
+    // লোকেশন প্রপার্টিজ
+    public $division_id, $district_id, $upazila_id, $union_id, $ward_id;
+
+    // কালেকশন প্রপার্টিজ (এগুলোকে মাউন্ট বা আপডেটেড মেথডে পপুলেট করা হবে)
+    public $districts = [], $upazilas = [], $unions = [], $wards = [];
+
+    /**
+     * মাউন্ট মেথড
+     */
+    public function mount($id = null)
     {
-        $this->resetPage();
+        if ($id) {
+            $voter = Voter::findOrFail($id);
+            $this->voterId = $id;
+            $this->isEditMode = true;
+
+            // তথ্য ফিল করা
+            $this->fill($voter->only([
+                'name', 'father_name', 'mother_name', 'house_name',
+                'voter_number', 'current_location', 'division_id',
+                'district_id', 'upazila_id', 'union_id', 'ward_id'
+            ]));
+
+            // চেইন ড্রপডাউন ডেটা লোড করা
+            $this->districts = District::where('division_id', $this->division_id)->get();
+            $this->upazilas  = Upazila::where('district_id', $this->district_id)->get();
+            $this->unions    = Union::where('upazila_id', $this->upazila_id)->get();
+            $this->wards     = Ward::where('union_id', $this->union_id)->get();
+        }
     }
 
-// ইনপুট ফিল্ডগুলো খালি করার জন্য
-public function resetFields()
-{
-    $this->name = '';
-    $this->father_name = '';
-    $this->mother_name = '';
-    $this->house_name = '';
-    $this->voter_number = '';
-    $this->current_location = '';
-    $this->voter_id = null;
-}
-
-    // নতুন ভোটার সেভ করার ফাংশন
-    public function store()
-    {
-        // ডাটা ভ্যালিডেশন
-        $this->validate([
-            'name' => 'required|string|max:255',
-            'voter_number' => 'required|unique:voters,voter_number',
-            'current_location' => 'required',
-        ]);
-
-        // ডাটাবেজে সেভ
-        Voter::create([
-            'name' => $this->name,
-            'father_name' => $this->father_name,
-            'mother_name' => $this->mother_name,
-            'house_name' => $this->house_name,
-            'voter_number' => $this->voter_number,
-            'current_location' => $this->current_location,
-        ]);
-
-        session()->flash('message', 'নতুন ভোটার সফলভাবে যুক্ত করা হয়েছে!');
-
-        $this->resetFields(); // ফরম খালি করা
+    /**
+     * ড্রপডাউন চেইন লজিক (Updated Methods)
+     */
+    public function updatedDivisionId($value) {
+        $this->districts = $value ? District::where('division_id', $value)->get() : [];
+        $this->reset(['district_id', 'upazila_id', 'union_id', 'ward_id', 'upazilas', 'unions', 'wards']);
     }
 
-    // এডিট করার জন্য ডেটা লোড করা
-public function edit($id)
-{
-    $voter = Voter::findOrFail($id);
-
-    $this->voter_id = $id; // আইডি ধরে রাখা
-    $this->name = $voter->name;
-    $this->father_name = $voter->father_name;
-    $this->mother_name = $voter->mother_name;
-    $this->house_name = $voter->house_name;
-    $this->voter_number = $voter->voter_number;
-    $this->current_location = $voter->current_location;
-
-    // পেজ স্ক্রল করে উপরে ফরমের কাছে নিয়ে যাওয়ার জন্য (Optional)
-    $this->dispatch('scroll-to-top');
-}
-
-    // ডেটা আপডেট করার ফাংশন
-    public function update()
-    {
-        $this->validate([
-            'name' => 'required|string|max:255',
-            'voter_number' => 'required|unique:voters,voter_number,' . $this->voter_id,
-            'current_location' => 'required',
-        ]);
-
-        $voter = Voter::find($this->voter_id);
-        $voter->update([
-            'name' => $this->name,
-            'father_name' => $this->father_name,
-            'mother_name' => $this->mother_name,
-            'house_name' => $this->house_name,
-            'voter_number' => $this->voter_number,
-            'current_location' => $this->current_location,
-        ]);
-
-        session()->flash('message', 'ভোটার তথ্য সফলভাবে আপডেট করা হয়েছে!');
-        $this->resetFields();
+    public function updatedDistrictId($value) {
+        $this->upazilas = $value ? Upazila::where('district_id', $value)->get() : [];
+        $this->reset(['upazila_id', 'union_id', 'ward_id', 'unions', 'wards']);
     }
-    // ভোটার ডিলিট করার ফাংশন
-public function delete($id)
+
+    public function updatedUpazilaId($value) {
+        $this->unions = $value ? Union::where('upazila_id', $value)->get() : [];
+        $this->reset(['union_id', 'ward_id', 'wards']);
+    }
+
+    public function updatedUnionId($value) {
+        $this->wards = $value ? Ward::where('union_id', $value)->get() : [];
+        $this->reset(['ward_id']);
+    }
+
+    /**
+     * ভোটার সেভ বা আপডেট করা
+     */
+    public function saveVoter()
     {
+        $rules = [
+            'name'             => 'required|string|max:255',
+            'father_name'      => 'required|string|max:255',
+            'mother_name'      => 'required|string|max:255',
+            'house_name'       => 'required|string|max:255',
+            'voter_number'     => 'required|string|max:255|unique:voters,voter_number,' . $this->voterId,
+            'current_location' => 'required|string|max:255',
+            'division_id'      => 'required|exists:divisions,id',
+            'district_id'      => 'required|exists:districts,id',
+            'upazila_id'       => 'required|exists:upazilas,id',
+            'union_id'         => 'required|exists:unions,id',
+            'ward_id'          => 'required|exists:wards,id',
+        ];
+
+        $validatedData = $this->validate($rules);
+
         try {
-            Voter::findOrFail($id)->delete();
-            session()->flash('message', 'ভোটার সফলভাবে ডিলিট করা হয়েছে।');
+            DB::transaction(function () use ($validatedData) {
+                if ($this->isEditMode) {
+                    Voter::findOrFail($this->voterId)->update($validatedData);
+                    session()->flash('message', 'ভোটার তথ্য সফলভাবে আপডেট করা হয়েছে!');
+                } else {
+                    Voter::create($validatedData);
+                    session()->flash('message', 'ভোটার সফলভাবে যোগ করা হয়েছে!');
+                }
+            });
+
+            return redirect()->route('voters.voter-list');
+
         } catch (\Exception $e) {
-            session()->flash('error', 'কিছু একটা ভুল হয়েছে!');
+            session()->flash('error', 'কিছু একটা ভুল হয়েছে! আবার চেষ্টা করুন।');
         }
     }
 
     public function render()
     {
-        $voters = Voter::query()
-            ->when($this->search, function ($query) {
-                $query->where('name', 'like', '%' . $this->search . '%')
-                      ->orWhere('voter_number', 'like', '%' . $this->search . '%')
-                      ->orWhere('current_location', 'like', '%' . $this->search . '%')
-                      ->orWhere('house_name', 'like', '%' . $this->search . '%');
-            })
-            ->latest()
-            ->paginate(10);
-
         return view('livewire.voter-manager', [
-            'voters' => $voters,
+            'divisions' => Division::orderBy('name', 'asc')->get()
         ]);
     }
 }
