@@ -1,8 +1,9 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
+use App\Livewire\VoterList;
 use App\Livewire\VoterManager; // আপনার ক্লাস বেইজড কম্পোনেন্ট
 use App\Models\Voter;
+use Illuminate\Support\Facades\Route;
 
 // হোম পেজ (পাবলিক)
 Route::view('/', 'welcome')->name('home');
@@ -19,9 +20,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::prefix('voters')->name('voters.')->group(function () {
 
         // প্রধান CRUD কম্পোনেন্ট (লিস্ট, তৈরি, এডিট এবং ডিলিট এখন একসাথেই হবে)
-        Route::get('/', VoterManager::class)->name('index');
-
-        // ভোটার কমেন্ট যোগ করার রাউট (এটি আগের মতোই রাখা হয়েছে)
+        Route::get('/', VoterManager::class)->name('create'); // এই রাউটটি এখন সব CRUD অপারেশন হ্যান্ডেল করবে
+        Route::get('/edit/{id}', VoterManager::class)->name('edit'); // এডিট রাউট (এটি একই কম্পোনেন্ট ব্যবহার করবে)
+        Route::get('/voter-list', VoterList::class)->name('voter-list');
+        // ভোটার কমেন্ট যোগ করার রাউট (এটি আগের মতোই রাখা হয়েছে)
         Route::get('/voter-comment/{voter}', function (Voter $voter) {
             return view('pages.voter-comment.create', compact('voter'));
                   })->name('voter-comments.create');

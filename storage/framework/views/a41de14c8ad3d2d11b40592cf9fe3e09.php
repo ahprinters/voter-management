@@ -1,6 +1,7 @@
 <?php
+use App\Models\Mosque;
 use Livewire\Component;
-use App\Models\Division;
+use Livewire\WithPagination;
 ?>
 
 <div class="p-6">
@@ -13,9 +14,16 @@ use App\Models\Division;
 
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
         <div class="bg-white p-4 shadow rounded-lg h-fit">
-            <h3 class="text-lg font-bold mb-4"><?php echo e($isEditing ? 'তথ্য সংশোধন' : 'নতুন বিভাগ যোগ করুন'); ?></h3>
+            <h3 class="text-lg font-bold mb-4"><?php echo e($isEditing ? 'তথ্য সংশোধন' : 'নতুন মসজিদ যোগ করুন'); ?></h3>
             <form wire:submit.prevent="save" class="space-y-3">
-                <input type="text" wire:model="division_name" placeholder="বিভাগের নাম" class="w-full border rounded p-2">
+                <input type="text" wire:model="name" placeholder="মসজিদের নাম" class="w-full border rounded p-2">
+                <input type="text" wire:model="address" placeholder="ঠিকানা" class="w-full border rounded p-2">
+                <input type="text" wire:model="Imam_name" placeholder="ইমামের নাম" class="w-full border rounded p-2">
+                <input type="text" wire:model="Muazzin_name" placeholder="মুয়াজ্জিনের নাম" class="w-full border rounded p-2">
+                <input type="text" wire:model="Mutawally_name" placeholder="মুতাওয়াল্লীর নাম" class="w-full border rounded p-2">
+                <input type="text" wire:model="phone_number" placeholder="ফোন নম্বর" class="w-full border rounded p-2">
+                <textarea wire:model="comments" placeholder="মন্তব্য" class="w-full border rounded p-2"></textarea>
+
                 <div class="flex gap-2">
                     <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded">
                         <?php echo e($isEditing ? 'আপডেট' : 'সংরক্ষণ'); ?>
@@ -35,26 +43,30 @@ use App\Models\Division;
                 <thead>
                     <tr class="bg-gray-100">
                         <th class="border p-2 text-left">নাম</th>
+                        <th class="border p-2 text-left">ঠিকানা</th>
+                        <th class="border p-2 text-left">ইমাম</th>
                         <th class="border p-2 text-center">অ্যাকশন</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php \Livewire\Features\SupportCompiledWireKeys\SupportCompiledWireKeys::openLoop(); ?><?php endif; ?><?php $__currentLoopData = $divisions; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $division): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><?php \Livewire\Features\SupportCompiledWireKeys\SupportCompiledWireKeys::startLoopIteration(); ?><?php endif; ?>
+                    <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php \Livewire\Features\SupportCompiledWireKeys\SupportCompiledWireKeys::openLoop(); ?><?php endif; ?><?php $__currentLoopData = $mosques; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $mosque): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><?php \Livewire\Features\SupportCompiledWireKeys\SupportCompiledWireKeys::startLoopIteration(); ?><?php endif; ?>
                         <tr>
-                            <td class="border p-2"><?php echo e($division->division_name); ?></td>
+                            <td class="border p-2"><?php echo e($mosque->name); ?></td>
+                            <td class="border p-2"><?php echo e($mosque->address); ?></td>
+                            <td class="border p-2"><?php echo e($mosque->Imam_name); ?></td>
                             <td class="border p-2 text-center">
-                                <button wire:click="edit(<?php echo e($division->id); ?>)" class="text-blue-500 hover:underline">এডিট</button>
+                                <button wire:click="edit(<?php echo e($mosque->id); ?>)" class="text-blue-500 hover:underline">এডিট</button>
                                 <button onclick="confirm('আপনি কি নিশ্চিত?') || event.stopImmediatePropagation()"
-                                        wire:click="delete(<?php echo e($division->id); ?>)" class="text-red-500 hover:underline ml-2">মুছুন</button>
+                                        wire:click="delete(<?php echo e($mosque->id); ?>)" class="text-red-500 hover:underline ml-2">মুছুন</button>
                             </td>
                         </tr>
                     <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><?php \Livewire\Features\SupportCompiledWireKeys\SupportCompiledWireKeys::endLoop(); ?><?php endif; ?><?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php \Livewire\Features\SupportCompiledWireKeys\SupportCompiledWireKeys::closeLoop(); ?><?php endif; ?>
                 </tbody>
             </table>
             <div class="mt-4">
-                <?php echo e($divisions->links()); ?>
+                <?php echo e($mosques->links()); ?>
 
             </div>
         </div>
     </div>
-</div><?php /**PATH C:\Users\ahps3\Herd\voter-management\storage\framework/views/livewire/views/e29f91d6.blade.php ENDPATH**/ ?>
+</div><?php /**PATH C:\Users\ahps3\Herd\voter-management\storage\framework/views/livewire/views/b7775af9.blade.php ENDPATH**/ ?>

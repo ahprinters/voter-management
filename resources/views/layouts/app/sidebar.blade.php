@@ -14,68 +14,30 @@
         </flux:sidebar.header>
 
         <flux:sidebar.nav>
+
             <flux:sidebar.group :heading="__('Platform')" class="grid">
                 <flux:sidebar.item icon="home" :href="route('dashboard')" :current="request()->routeIs('dashboard')"
                     wire:navigate>
                     {{ __('Dashboard') }}
                 </flux:sidebar.item>
+            </flux:sidebar.group>
 
-                <flux:sidebar.item icon="user-plus" :href="route('voters.index')"
-                    :current="request()->routeIs('voters.index')" wire:navigate>
-                    {{ __('নতুন ভোটার') }}
+            {{-- Voter Management --}}
+            {{-- Voter Management --}}
+            <flux:sidebar.group expandable :expanded="false" heading="Voter Management" icon="users">
+                <flux:sidebar.item icon="user-plus" :href="route('voters.create')"
+                    :current="request()->routeIs('voters.create')" wire:navigate>
+                    Create Voter
+                </flux:sidebar.item>
+
+                <flux:sidebar.item icon="user" :href="route('voters.voter-list')"
+                    :current="request()->routeIs('voters.voter-list')" wire:navigate>
+                    Voter List
                 </flux:sidebar.item>
             </flux:sidebar.group>
 
-            <flux:navlist.group expandable heading="{{ __('প্রতিষ্ঠান') }}" icon="building-office">
-                {{-- মসজিদ সাব-মেনু --}}
-                <flux:navlist.item icon="building-library" :href="route('mosque.create')"
-                    :current="request()->routeIs('mosque.create')" wire:navigate>
-                    {{ __('মসজিদ তথ্য') }}
-                </flux:navlist.item>
 
-                {{-- প্রাইমারি স্কুল সাব-মেনু --}}
-                <flux:navlist.item icon="building-office" :href="route('primary-school.create')"
-                    :current="request()->routeIs('primary-school.create')" wire:navigate>
-                    {{ __('প্রাইমারি স্কুল তথ্য') }}
-                </flux:navlist.item>
 
-                {{-- মন্দির সাব-মেনু --}}
-                <flux:navlist.item icon="home-modern" :href="route('temple.create')"
-                    :current="request()->routeIs('temple.create')" wire:navigate>
-                    {{ __('টেম্পেল তথ্য') }}
-                </flux:navlist.item>
-            </flux:navlist.group>
-
-            <flux:navlist.group expandable heading="{{ __('ভৌগোলিক') }}" icon="map">
-                {{-- বিভাগ সাব-মেনু --}}
-                <flux:navlist.item icon="map-pin" :href="route('division.create')"
-                    :current="request()->routeIs('division.create')" wire:navigate>
-                    {{ __('বিভাগ তথ্য') }}
-                </flux:navlist.item>
-
-                {{-- জেলা সাব-মেনু --}}
-                <flux:navlist.item icon="map-pin" :href="route('district.create')"
-                    :current="request()->routeIs('district.create')" wire:navigate>
-                    {{ __('জেলা তথ্য') }}
-                </flux:navlist.item>
-
-                {{-- উপজেলা সাব-মেনু --}}
-                <flux:navlist.item icon="map-pin" :href="route('upazila.create')"
-                    :current="request()->routeIs('upazila.create')" wire:navigate>
-                    {{ __('উপজেলা তথ্য') }}
-                </flux:navlist.item>
-
-                {{-- ইউনিয়ন সাব-মেনু --}}
-                <flux:navlist.item icon="map-pin" :href="route('union.create')"
-                    :current="request()->routeIs('union.create')" wire:navigate>
-                    {{ __('ইউনিয়ন তথ্য') }}
-                </flux:navlist.item>
-                    {{-- ওয়ার্ড সাব-মেনু --}}
-                    <flux:navlist.item icon="map-pin" :href="route('ward.create')"
-                        :current="request()->routeIs('ward.create')" wire:navigate>
-                        {{ __('ওয়ার্ড তথ্য') }}
-                    </flux:navlist.item>
-            </flux:navlist.group>
         </flux:sidebar.nav>
 
         <flux:spacer />
@@ -140,6 +102,12 @@
     </flux:header>
 
     {{ $slot }}
+
+    @persist('toast')
+        <flux:toast.group>
+            <flux:toast />
+        </flux:toast.group>
+    @endpersist
 
     @fluxScripts
 </body>

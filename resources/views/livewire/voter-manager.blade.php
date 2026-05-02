@@ -3,7 +3,7 @@
         <h2 class="text-2xl font-bold text-gray-800">
             {{ $isEditMode ? 'ভোটার তথ্য আপডেট' : 'নতুন ভোটার যুক্ত করুন' }}
         </h2>
-        <a href="#" class="bg-gray-500 text-white px-4 py-2 rounded-md hover:bg-gray-600 transition text-sm">
+        <a href="{{ route('voters.voter-list') }}" class="bg-gray-500 text-white px-4 py-2 rounded-md hover:bg-gray-600 transition text-sm">
             তালিকায় ফিরে যান
         </a>
     </div>
