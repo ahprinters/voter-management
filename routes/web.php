@@ -41,8 +41,8 @@ Route::middleware(['auth'])->group(function () {
     Route::livewire('/temple/create', 'pages::temple.create')->name('temple.create');
 
     //গ্রাম এবং বাড়ি ম্যানেজার রাউট
-    Route::get('/villages', VillageManager::class)->name('village-manager.create');
-    Route::get('/houses', HouseManager::class)->name('house-manager.create');
+    // Route::get('/villages', VillageManager::class)->name('village-manager.create');
+    // Route::get('/houses', HouseManager::class)->name('house-manager.create');
 
     // ভৌগোলিক সংশ্লিষ্ট রাউট
     Route::livewire('/division/create', 'pages::division.create')->name('division.create');
@@ -50,6 +50,7 @@ Route::middleware(['auth'])->group(function () {
     Route::livewire('/upazila/create', 'pages::upazila.create')->name('upazila.create');
     Route::livewire('/union/create', 'pages::union.create')->name('union.create');
     Route::livewire('/ward/create', 'pages::ward.create')->name('ward.create');
+    Route::livewire('/village/create', 'pages::village.create')->name('village.create');
 })->name('auth.');
 
 

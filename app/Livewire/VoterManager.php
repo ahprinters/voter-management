@@ -2,9 +2,7 @@
 
 namespace App\Livewire;
 
-use App\Models\{Voter, Division, District, Upazila, Union, Ward};
-use App\Models\House;
-use App\Models\Village;
+use App\Models\{Voter, Division, District, Upazila, Union, Ward, Village, House};
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 use Log;

@@ -52,12 +52,10 @@
                     {{ __('ওয়ার্ড তথ্য') }}
                 </flux:navlist.item>
 
-                <flux:navlist.item icon="map-pin" :href="route('village-manager.create')" :current="request()->routeIs('village-manager.create')" wire:navigate>
+                <flux:navlist.item icon="map-pin" :href="route('village.create')" :current="request()->routeIs('village.create')" wire:navigate>
                     {{ __('গ্রাম তথ্য') }}
                 </flux:navlist.item>
-                <flux:navlist.item icon="home-modern" :href="route('house-manager.create')" :current="request()->routeIs('house-manager.create')" wire:navigate>
-                    {{ __('বাড়ি তথ্য') }}
-                </flux:navlist.item>
+
             </flux:sidebar.group>
 
         </flux:sidebar.nav>
