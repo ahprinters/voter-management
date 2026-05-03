@@ -1,5 +1,7 @@
 <?php
 
+use App\Livewire\HouseManager;
+use App\Livewire\VillageManager;
 use App\Livewire\VoterList;
 use App\Livewire\VoterManager; // আপনার ক্লাস বেইজড কম্পোনেন্ট
 use App\Models\Voter;
@@ -37,6 +39,10 @@ Route::middleware(['auth'])->group(function () {
     Route::livewire('/primary-school/create', 'pages::primary-school.create')->name('primary-school.create');
     Route::livewire('/mosque/create', 'pages::mosque.create')->name('mosque.create');
     Route::livewire('/temple/create', 'pages::temple.create')->name('temple.create');
+
+    //গ্রাম এবং বাড়ি ম্যানেজার রাউট
+    Route::get('/villages', VillageManager::class)->name('village-manager.create');
+    Route::get('/houses', HouseManager::class)->name('house-manager.create');
 
     // ভৌগোলিক সংশ্লিষ্ট রাউট
     Route::livewire('/division/create', 'pages::division.create')->name('division.create');

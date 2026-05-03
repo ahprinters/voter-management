@@ -13,9 +13,9 @@ class Union extends Model
         'division_id',
     ];
 
-    public function upazila()
+    public function division()
     {
-        return $this->belongsTo(Upazila::class);
+        return $this->belongsTo(Division::class);
     }
 
     public function district()
@@ -23,21 +23,25 @@ class Union extends Model
         return $this->belongsTo(District::class);
     }
 
-    public function division()
+    public function upazila()
     {
-        return $this->belongsTo(Division::class);
+        return $this->belongsTo(Upazila::class);
     }
 
     public function wards()
     {
         return $this->hasMany(Ward::class);
     }
+    public function villages()
+    {
+        return $this->hasMany(Village::class);
+    }
+        public function houses()
+    {
+        return $this->hasMany(House::class);
+    }
     public function voters()
     {
         return $this->hasMany(Voter::class);
-    }
-    public function houses()
-    {
-        return $this->hasMany(House::class);
     }
 }

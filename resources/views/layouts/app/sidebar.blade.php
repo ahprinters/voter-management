@@ -23,7 +23,6 @@
             </flux:sidebar.group>
 
             {{-- Voter Management --}}
-            {{-- Voter Management --}}
             <flux:sidebar.group expandable :expanded="false" heading="Voter Management" icon="users">
                 <flux:sidebar.item icon="user-plus" :href="route('voters.create')"
                     :current="request()->routeIs('voters.create')" wire:navigate>
@@ -35,8 +34,31 @@
                     Voter List
                 </flux:sidebar.item>
             </flux:sidebar.group>
+            {{-- ভৌগোলিক --}}
+            <flux:sidebar.group expandable :expanded="false" heading="{{ __('ভৌগোলিক') }}" icon="map">
+                <flux:navlist.item icon="map-pin" :href="route('division.create')" :current="request()->routeIs('division.create')" wire:navigate>
+                    {{ __('বিভাগ তথ্য') }}
+                </flux:navlist.item>
+                <flux:navlist.item icon="map-pin" :href="route('district.create')" :current="request()->routeIs('district.create')" wire:navigate>
+                    {{ __('জেলা তথ্য') }}
+                </flux:navlist.item>
+                <flux:navlist.item icon="map-pin" :href="route('upazila.create')" :current="request()->routeIs('upazila.create')" wire:navigate>
+                    {{ __('উপজেলা তথ্য') }}
+                </flux:navlist.item>
+                <flux:navlist.item icon="map-pin" :href="route('union.create')" :current="request()->routeIs('union.create')" wire:navigate>
+                    {{ __('ইউনিয়ন তথ্য') }}
+                </flux:navlist.item>
+                <flux:navlist.item icon="map-pin" :href="route('ward.create')" :current="request()->routeIs('ward.create')" wire:navigate>
+                    {{ __('ওয়ার্ড তথ্য') }}
+                </flux:navlist.item>
 
-
+                <flux:navlist.item icon="map-pin" :href="route('village-manager.create')" :current="request()->routeIs('village-manager.create')" wire:navigate>
+                    {{ __('গ্রাম তথ্য') }}
+                </flux:navlist.item>
+                <flux:navlist.item icon="home-modern" :href="route('house-manager.create')" :current="request()->routeIs('house-manager.create')" wire:navigate>
+                    {{ __('বাড়ি তথ্য') }}
+                </flux:navlist.item>
+            </flux:sidebar.group>
 
         </flux:sidebar.nav>
 

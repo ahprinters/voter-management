@@ -4,10 +4,14 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class District extends Model
+class Village extends Model
 {
     protected $fillable = [
-        'district_name',
+        'village_name',
+        'ward_id',
+        'union_id',
+        'upazila_id',
+        'district_id',
         'division_id',
     ];
 
@@ -15,24 +19,21 @@ class District extends Model
     {
         return $this->belongsTo(Division::class);
     }
-
-    public function upazilas()
+    public function district()
     {
-        return $this->hasMany(Upazila::class);
+        return $this->belongsTo(District::class);
     }
-
-    public function unions()
+    public function upazila()
     {
-        return $this->hasMany(Union::class);
+        return $this->belongsTo(Upazila::class);
     }
-    public function wards()
+    public function union()
     {
-        return $this->hasMany(Ward::class);
+        return $this->belongsTo(Union::class);
     }
-
-    public function villages()
+    public function ward()
     {
-        return $this->hasMany(Village::class);
+        return $this->belongsTo(Ward::class);
     }
     public function houses()
     {

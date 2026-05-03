@@ -13,16 +13,15 @@ return new class extends Migration
     {
         Schema::create('houses', function (Blueprint $table) {
             $table->id();
-            $table-> foreignId('division_id')->constrained()->onDelete('cascade');
+            $table->foreignId('division_id')->constrained()->onDelete('cascade');
             $table->foreignId('district_id')->constrained()->onDelete('cascade');
             $table->foreignId('upazila_id')->constrained()->onDelete('cascade');
             $table->foreignId('union_id')->constrained()->onDelete('cascade');
             $table->foreignId('ward_id')->constrained()->onDelete('cascade');
-            $table->foreignId('voter_id')->constrained()->onDelete('cascade');
+            $table->foreignId('village_id')->constrained()->onDelete('cascade');
+
             $table->string('house_chief_name');
-            $table->string('village_name');
-            $table->string('holding_no');
-            $table->integer('mobile_no')->unsigned();
+            $table->string('mobile_no', 15)->nullable();
             $table->timestamps();
         });
     }

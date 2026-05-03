@@ -167,19 +167,6 @@ unset($__errorArgs, $__bag); ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendB
             </div>
 
             <div class="md:col-span-2">
-                <label class="block text-sm font-medium text-gray-700">বাড়ির নাম</label>
-                <input type="text" wire:model="house_name" class="mt-1 p-2 block w-full border-gray-300 rounded-md shadow-sm border" placeholder="বাড়ির নাম">
-                <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php endif; ?><?php $__errorArgs = ['house_name'];
-$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
-if ($__bag->has($__errorArgs[0])) :
-if (isset($message)) { $__messageOriginal = $message; }
-$message = $__bag->first($__errorArgs[0]); ?> <span class="text-red-500 text-xs"><?php echo e($message); ?></span> <?php unset($message);
-if (isset($__messageOriginal)) { $message = $__messageOriginal; }
-endif;
-unset($__errorArgs, $__bag); ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php endif; ?>
-            </div>
-
-            <div class="md:col-span-2">
                 <label class="block text-sm font-medium text-gray-700">বর্তমান অবস্থান</label>
                 <textarea wire:model="current_location" rows="2" class="mt-1 p-2 block w-full border-gray-300 rounded-md shadow-sm border" placeholder="গ্রাম/মহল্লা এবং বিস্তারিত ঠিকানা"></textarea>
                 <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php endif; ?><?php $__errorArgs = ['current_location'];

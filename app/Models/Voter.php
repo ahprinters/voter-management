@@ -11,7 +11,6 @@ class Voter extends Model
         'name',
         'father_name',
         'mother_name',
-        'house_name',
         'voter_number',
         'current_location',
         'division_id',
@@ -19,6 +18,8 @@ class Voter extends Model
         'upazila_id',
         'union_id',
         'ward_id',
+        'village_id',
+        'house_id',
     ];
 
 
@@ -47,8 +48,12 @@ class Voter extends Model
     {
         return $this->belongsTo(Ward::class);
     }
-        public function houses()
-        {
-            return $this->hasMany(House::class);
-        }
+    public function village()
+    {
+        return $this->belongsTo(Village::class);
+    }
+    public function house()
+    {
+        return $this->belongsTo(House::class);
+    }
 }

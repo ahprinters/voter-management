@@ -102,12 +102,6 @@
             </div>
 
             <div class="md:col-span-2">
-                <label class="block text-sm font-medium text-gray-700">বাড়ির নাম</label>
-                <input type="text" wire:model="house_name" class="mt-1 p-2 block w-full border-gray-300 rounded-md shadow-sm border" placeholder="বাড়ির নাম">
-                @error('house_name') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
-            </div>
-
-            <div class="md:col-span-2">
                 <label class="block text-sm font-medium text-gray-700">বর্তমান অবস্থান</label>
                 <textarea wire:model="current_location" rows="2" class="mt-1 p-2 block w-full border-gray-300 rounded-md shadow-sm border" placeholder="গ্রাম/মহল্লা এবং বিস্তারিত ঠিকানা"></textarea>
                 @error('current_location') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror

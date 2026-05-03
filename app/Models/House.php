@@ -3,6 +3,8 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class House extends Model
 {
@@ -12,40 +14,45 @@ class House extends Model
         'upazila_id',
         'union_id',
         'ward_id',
-        'voter_id',
+        'village_id',
         'house_chief_name',
-        'village_name',
-        'holding_no',
         'mobile_no',
     ];
 
-    public function division()
+    // রিলেশনশিপসমূহ
+
+    public function division(): BelongsTo
     {
         return $this->belongsTo(Division::class);
     }
 
-    public function district()
+    public function district(): BelongsTo
     {
         return $this->belongsTo(District::class);
     }
 
-    public function upazila()
+    public function upazila(): BelongsTo
     {
         return $this->belongsTo(Upazila::class);
     }
 
-    public function union()
+    public function union(): BelongsTo
     {
         return $this->belongsTo(Union::class);
     }
 
-    public function ward()
+    public function ward(): BelongsTo
     {
         return $this->belongsTo(Ward::class);
     }
 
-    public function voter()
+    public function village(): BelongsTo
     {
-        return $this->belongsTo(Voter::class);
+        return $this->belongsTo(Village::class);
+    }
+
+      public function rooms(): HasMany
+    {
+        return $this->hasMany(Room::class);
     }
 }
