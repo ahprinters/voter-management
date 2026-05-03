@@ -51,6 +51,7 @@ Route::middleware(['auth'])->group(function () {
     Route::livewire('/union/create', 'pages::union.create')->name('union.create');
     Route::livewire('/ward/create', 'pages::ward.create')->name('ward.create');
     Route::livewire('/village/create', 'pages::village.create')->name('village.create');
+    Route::livewire('/house/create', 'pages::house.create')->name('house.create');
 })->name('auth.');
 
 

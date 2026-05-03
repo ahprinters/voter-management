@@ -43,4 +43,8 @@ class Ward extends Model
     {
         return $this->hasMany(Voter::class);
     }
+    public function rooms()
+    {
+        return $this->hasMany(Room::class);
+    }
 }

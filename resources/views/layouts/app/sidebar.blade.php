@@ -55,6 +55,9 @@
                 <flux:navlist.item icon="map-pin" :href="route('village.create')" :current="request()->routeIs('village.create')" wire:navigate>
                     {{ __('গ্রাম তথ্য') }}
                 </flux:navlist.item>
+                <flux:navlist.item icon="map-pin" :href="route('house.create')" :current="request()->routeIs('house.create')" wire:navigate>
+                    {{ __('ঘর তথ্য') }}
+                </flux:navlist.item>
 
             </flux:sidebar.group>
 

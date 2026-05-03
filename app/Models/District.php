@@ -38,6 +38,10 @@ class District extends Model
     {
         return $this->hasMany(House::class);
     }
+    public function rooms()
+    {
+        return $this->hasMany(Room::class);
+    }
     public function voters()
     {
         return $this->hasMany(Voter::class);
